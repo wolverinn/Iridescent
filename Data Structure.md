@@ -53,7 +53,7 @@ array1 = array([1,2,3])
 - pop() —— 删除在数组末端的元素，并返回其值
   
   ```
-  def pop(self)
+  def pop(self):
       return self.data.pop()
   ```
 
@@ -116,12 +116,12 @@ array1 = array([1,2,3])
 单向链表:
 
 ```
-class listNode:		# 链表中的结点
+class listNode:        # 链表中的结点
     def __init__(self, x):
         self.val = x
         self.next = None
 
-class LinkedList:		# 链表类
+class LinkedList:        # 链表类
     def __init__(self):
         self.head = None
 
@@ -244,15 +244,72 @@ l1.add(2)
       if not self.head:
           raise IndexError("Index out of range")
       head = self.head
-      while index > 0:
+      new_node = listNode(value)
+      if index == 0:
+          new_node.next = head
+          self.head = new_node
+          return
+      while index - 1 > 0:
           head = head.next
+          if not head:
+              raise IndexError("Index out of range")
           index -= 1
+      temp = head.next
+      head.next = new_node
+      new_node.next = temp
   ```
 
 - erase(index) —— 删除指定索引的节点
-
-- value_n_from_end(n) —— 返回倒数第 n 个节点的值
+  
+  ```
+  def erase(self, index):
+      if not self.head:
+          raise IndexError("Index out of range")
+      head = self.head
+      if index == 0:
+          self.head = head.next
+      while index - 1 > 0:
+          index -= 1
+          head = head.next
+          if not head:
+              raise IndexError("Index out of range")
+      temp = head.next
+      head.next = temp.next
+  ```
 
 - reverse() —— 逆序链表
+  
+  ```
+  def reverse(self):
+      prev = None
+      head = self.head
+      while head:
+          temp = head.next
+          head.next = prev
+          prev = head
+          head = temp
+      self.head = prev
+  ```
 
-- remove_value(value) —— 删除链表中指定值的第一个元素
+- remove(value) —— 删除链表中指定值的第一个元素
+  
+  ```
+  def remove(self,value):
+      if not self.head:
+          return
+      head = self.head
+      if head.val == value:
+          self.head = head.next
+          return
+      while head.next:
+          if head.next.val == value:
+              temp = head.next.next
+              head.next = temp
+              return
+          head = head.next
+  ```
+  
+  时间复杂度：
+  
+     - 在链表的**首部插入/移除结点**、获得**链表首部的值**，都是O(1)时间复杂度
+     - 获取/移除/插入任一结点、尾部结点，都是O(n)时间复杂度
