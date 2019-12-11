@@ -5,11 +5,11 @@
 使用 Python 的 List（列表）实现：
 
 ```
-class array:
+class Array:
     def __init__(self, x):
         self.data = list(x)
 
-array1 = array([1,2,3])
+array1 = Array([1,2,3])
 ```
 
 - size() —— 数组元素的个数
@@ -149,7 +149,7 @@ l1.add(2)
       return True if self.head else False
   ```
 
-- value_at(index) —— 返回第 n 个元素的值（从0开始计算）
+- value_at(index) —— 返回第 n 个元素的值（从0开始计算），若索引超过链表长度则报错
   
   ```
   def value_at(self, index):
@@ -173,7 +173,7 @@ l1.add(2)
       self.head = new_node
   ```
 
-- pop_front() —— 删除首部元素并返回其值
+- pop_front() —— 删除首部元素并返回其值，若链表为空则报错
   
   ```
   def pop_front(self):
@@ -198,7 +198,7 @@ l1.add(2)
       head.next = new_node
   ```
 
-- pop_back() —— 删除尾部元素并返回其值
+- pop_back() —— 删除尾部元素并返回其值，若链表为空则报错
   
   ```
   def pop_back(self):
@@ -216,7 +216,7 @@ l1.add(2)
       return value
   ```
 
-- front() —— 返回首部元素的值
+- front() —— 返回首部元素的值，若链表为空则报错
   
   ```
   def front(self):
@@ -225,7 +225,7 @@ l1.add(2)
       return self.head.val
   ```
 
-- back() —— 返回尾部元素的值
+- back() —— 返回尾部元素的值，若链表为空则报错
   
   ```
   def back(self):
@@ -237,7 +237,7 @@ l1.add(2)
       return head.val
   ```
 
-- insert(index, value) —— 插入值到指定的索引
+- insert(index, value) —— 插入值到指定的索引，若索引超出链表长度则报错
   
   ```
   def insert(self, index, value):
@@ -259,7 +259,7 @@ l1.add(2)
       new_node.next = temp
   ```
 
-- erase(index) —— 删除指定索引的节点
+- erase(index) —— 删除指定索引的节点，若索引超出链表长度则报错
   
   ```
   def erase(self, index):
@@ -319,50 +319,89 @@ l1.add(2)
 使用数组实现栈（使用 Python 的 list 实现）：
 
 ```
-class stack:
+class Stack:
     def __init__(self):
         self.data = []
+        
+s1 = Stack()
+s1.push(1)
+s1.push(2)
 ```
 
 - push(item) —— 向栈顶添加元素
   
   ```
-    def push(self, item):
-        self.data.append(item)
+  def push(self, item):
+      self.data.append(item)
   ```
 
-- pop() —— 弹出栈顶的元素
+- pop() —— 弹出栈顶的元素，若栈为空则报错
   
   ```
-    def pop(self):
-        if self.data:
-            return self.data.pop()
-        else:
-            raise PopError("Pop from empty stack.")
+  def pop(self):
+      if self.data:
+          return self.data.pop()
+      else:
+          raise PopError("Pop from empty stack.")
+  `
+
+- peek() —— 返回栈顶的元素（但是不弹出），若栈为空则报错
+  
+  ```
+  def peek(self):
+      if self.data:
+          return self.data[-1]
+      else:
+          raise IndexError("Stack is empty.")
   ```
 
-- peek() —— 返回栈顶的元素（但是不弹出）
+- size() —— 返回栈的长度
   
   ```
-    def peek(self):
-        if self.data:
-            return self.data[-1]
-        else:
-            raise IndexError("Stack is empty.")
-  ```
-
-- count() —— 返回栈的长度
-  
-  ```
-    def count(self):
-        return len(self.data)
+  def size(self):
+      return len(self.data)
   ```
 
 - is_empty() —— 判断栈是否为空
   
   ```
-    def is_empty(self):
-        return self.data == []
+  def is_empty(self):
+      return self.data == []
   ```
 
 栈满足**后进先出 LIFO**的原则，时间复杂度：压栈、出栈都是 O(1)
+
+## Queue
+
+**单链队列**，使用 Python 中的列表 List 实现：
+
+- enqueue(item) —— 将一个元素入队（在队尾添加元素）
+
+  ```
+  def enqueue(self, item):
+      self.data.append(item)
+  ```
+  
+- dequeue() —— 将队首的元素出队，若队列为空则报错
+
+	```
+    def dequeue(self):
+        if self.data:
+            return self.data.pop(0)
+        else:
+            raise DequeueError("Queue is empty.")
+    ```
+    
+- size() —— 返回队列长度
+
+	```
+    def size(self):
+        return len(self.data)
+    ```
+    
+- is_empty() —— 判断队列是否为空
+
+	```
+    def is_empty(self):
+        return self.data == []
+    ```
