@@ -322,7 +322,7 @@ l1.add(2)
 class Stack:
     def __init__(self):
         self.data = []
-        
+
 s1 = Stack()
 s1.push(1)
 s1.push(2)
@@ -344,6 +344,7 @@ s1.push(2)
       else:
           raise PopError("Pop from empty stack.")
   `
+  ```
 
 - peek() —— 返回栈顶的元素（但是不弹出），若栈为空则报错
   
@@ -376,32 +377,32 @@ s1.push(2)
 **单链队列**，使用 Python 中的列表 List 实现：
 
 - enqueue(item) —— 将一个元素入队（在队尾添加元素）
-
+  
   ```
   def enqueue(self, item):
       self.data.append(item)
   ```
-  
+
 - dequeue() —— 将队首的元素出队，若队列为空则报错
+  
+  ```
+  def dequeue(self):
+      if self.data:
+          return self.data.pop(0)
+      else:
+          raise DequeueError("Queue is empty.")
+  ```
 
-	```
-    def dequeue(self):
-        if self.data:
-            return self.data.pop(0)
-        else:
-            raise DequeueError("Queue is empty.")
-    ```
-    
 - size() —— 返回队列长度
+  
+  ```
+  def size(self):
+      return len(self.data)
+  ```
 
-	```
-    def size(self):
-        return len(self.data)
-    ```
-    
 - is_empty() —— 判断队列是否为空
-
-	```
-    def is_empty(self):
-        return self.data == []
-    ```
+  
+  ```
+  def is_empty(self):
+      return self.data == []
+  ```
