@@ -411,10 +411,84 @@ s1.push(2)
 
 采用**循环队列（Circular Queue）**，可以将出队和入队的时间复杂度都降到 O(1)。循环队列有一个最大长度```max_size```，仍然采用列表实现。两个成员变量```front```和```rear```分别为队首元素和下一个入队的元素在列表中的索引。为了区别队列为空和队列为满，列表大小应为```length = max_size + 1```，列表中最多只能有```max_size```个队列元素。
 
-当进行入队操作时，先判断队列是否已满：**(rear + 1) % length == front**，一种方法是已满直接报错，另一种是若队列已满则扩容为原来的两倍。入队时，```rear = (rear + 1) % max_size```
+当进行入队操作时，先**判断队列是否已满**：**(rear + 1) % length == front**，一种方法是已满直接报错，另一种是若队列已满则扩容为原来的两倍。入队时，```rear = (rear + 1) % max_size```
 
-进行出队操作时，先判断队列是否为空：**front == rear**，如果为空则报错。出队时，```front = (front + 1) % max_size```
+进行出队操作时，先**判断队列是否为空**：**front == rear**，如果为空则报错。出队时，```front = (front + 1) % max_size```
 
-获得当前队列长度：**(rear - front + length) % length**
+获得**当前队列长度**：**(rear - front + length) % length**
 
-循环队列的方法，由于入队和出队操作都是直接通过索引访问列表，所以时间复杂度都是 O(1)
+使用循环队列的方法，由于入队和出队操作都是直接通过索引访问列表，所以时间复杂度都是 O(1)
+
+```
+class CircularQueue:
+    def __init__(self, max_size = 6):
+        self.data = [None]*(max_size+1)
+        self.front = 0
+        self.rear = 0
+```
+
+- get_max_size() —— 获得队列的最大长度
+  
+  ```
+  def get_max_size(self):
+      return len(self.data) - 1
+  ```
+
+- enqueue_strict(item) —— 入队操作，如果队列已满则报错
+  
+  ```
+  def enqueue_strict(self, item):
+      if (self.rear+1) % len(self.data) == self.front:
+          raise SizeError("Queue is full. Unable to enqueue.")
+      self.data[self.rear] = item
+      self.rear = (self.rear+1) % len(self.data)
+  ```
+
+- dequeue_strict() —— 出队操作，如果队列为空则报错
+  
+  ```
+  def dequeue_strict(self):
+      if self.front == self.rear:
+          raise SizeError("Queue is empty. Unable to dequeue.")
+      item = self.data[self.front]
+      self.data[self.front] = None
+      self.front = (self.front + 1) % len(self.data)
+  ```
+
+- enqueue(item) —— 入队操作，如果已满则扩容为原来队列大小的两倍再入队
+  
+  ```
+  def enqueue(self, item):
+      if (self.rear+1) % len(self.data) == self.front:
+          self.resize(self.get_max_size() * 2)
+      self.data[self.rear] = item
+      self.rear = (self.rear+1) % len(self.data)
+  ```
+
+- dequeue() —— 出队操作，检测如果队列大小等于列表大小的1/4，并且列表大小大于等于2，则减小列表大小为原来的一半以节省空间开销
+  
+  ```
+  def dequeue(self):
+      if self.front == self.rear:
+          raise SizeError("Queue is empty. Unable to dequeue.")
+      item = self.data[self.front]
+      self.data[self.front] = None
+      self.front = (self.front + 1) % len(self.data)
+      if self.size() == self.get_max_size()//4 and len(self.data) >= 2:
+          self.resize(self.get_max_size() // 2)
+      return item
+  ```
+
+- size() —— 返回队列的当前大小
+  
+  ```
+  def size(self):
+      return (self.rear - self.front + len(self.data)) % len(self.data)
+  ```
+
+- is_empty() —— 判断队列是否为空
+  
+  ```
+  def is_empty(self):
+      return self.front == self.rear
+  ```
