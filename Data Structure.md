@@ -313,3 +313,56 @@ l1.add(2)
   
      - 在链表的**首部插入/移除结点**、获得**链表首部的值**，都是O(1)时间复杂度
      - 获取/移除/插入任一结点、尾部结点，都是O(n)时间复杂度
+
+## Stack
+
+使用数组实现栈（使用 Python 的 list 实现）：
+
+```
+class stack:
+    def __init__(self):
+        self.data = []
+```
+
+- push(item) —— 向栈顶添加元素
+  
+  ```
+    def push(self, item):
+        self.data.append(item)
+  ```
+
+- pop() —— 弹出栈顶的元素
+  
+  ```
+    def pop(self):
+        if self.data:
+            return self.data.pop()
+        else:
+            raise PopError("Pop from empty stack.")
+  ```
+
+- peek() —— 返回栈顶的元素（但是不弹出）
+  
+  ```
+    def peek(self):
+        if self.data:
+            return self.data[-1]
+        else:
+            raise IndexError("Stack is empty.")
+  ```
+
+- count() —— 返回栈的长度
+  
+  ```
+    def count(self):
+        return len(self.data)
+  ```
+
+- is_empty() —— 判断栈是否为空
+  
+  ```
+    def is_empty(self):
+        return self.data == []
+  ```
+
+栈满足**后进先出 LIFO**的原则，时间复杂度：压栈、出栈都是 O(1)
