@@ -576,7 +576,35 @@ class treeNode:
 
 **空间复杂度**：由于每个结点都要先进行存储再弹出，故空间复杂度为O(n)
 
+- 二叉树的后序遍历，非递归版本：非递归的后序遍历是 hard 难度，所以专门在这里写一下。有下面几种思路：
+  
+     - 前序遍历是“根-左-右”，稍微改一下，就可以变成“根-右-左”，而将最后的结果倒序输出，就是后序遍历“左-右-根”的顺序了。时间复杂度依然为 O(n)：
+       
+       ```py
+       def postorder_wh(root):
+           if root is None:
+               return []
+           res = []
+           nodestack = []
+           while nodestack or root:
+               if root:
+                   res.append(root.val)
+                   nodestack.append(root)
+                   root = root.right
+               else:
+                   root = nodestack.pop()
+                   root = root.left
+           # res1 用来存放 res 的倒序输出
+           res1 = []
+           for i in range(len(res)):
+               res1.append(res[len(res)-1-i])
+           return res1
+       ```
+  
+     - 使用两个栈实现，这个思路也比较易于理解。后序遍历是“左-右-根”，所以对于一个栈来说，应该先push根结点，然后push右结点，最后push左结点。
+
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
 - [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
+- [二叉树的后序遍历-非递归版本-四种方法python - CSDN](https://blog.csdn.net/u012435142/article/details/89062177)
