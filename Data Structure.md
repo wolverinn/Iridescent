@@ -623,6 +623,63 @@ class treeNode:
            return res1
        ```
 
+### 二叉搜索树
+
+也叫二叉查找树（Binary Search Tree，BST），特性是每个结点的值都比左子树大，比右子树小
+
+- find_item(item, root) —— 寻找树中等于某个值的结点，利用BST的特性，若一个结点比该值大，则往结点的左边寻找，若一个结点比该值小，则往结点的右边寻找
+
+```py
+def find_item(item, root):
+    if not root:
+        return None
+    while root:
+        if root.val == item:
+            return root
+        elif root.val > item:
+            root = root.left
+        else:
+            root = root.right
+    return None
+```
+
+- find_max(root) —— 寻找树中值最大的结点。由于是BST，最大的结点一定在树的最右边
+
+```py
+def find_max(root):
+    if not root:
+        return None
+    while root.right:
+        root = root.right
+    return root
+```
+
+- find_min(root) —— 寻找值最小的结点，一定在树的最左边
+
+```py
+def find_min(root):
+    if not root:
+        return None
+    while root.left:
+        root = root.left
+    return root
+```
+
+- add_node(value, root) —— 在二叉搜索树中插入一个新的元素，若元素已存在则忽略
+
+```py
+def add_node(value, root):
+    if not root:
+        return treeNode(value)
+    if value > root.val:
+        root.right = add_node(value, root.right)  # 递归插入右子树
+    elif value < root.val:
+        root.left = add_node(value, root.left)  # 递归插入左子树
+    else:
+        pass  # 如果value已经存在，则什么也不做
+    return root
+```
+
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
