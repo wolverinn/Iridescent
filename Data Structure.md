@@ -2,6 +2,8 @@
 
 ## Array
 
+### 功能实现
+
 使用 Python 的 List（列表）实现：
 
 ```
@@ -104,14 +106,15 @@ array1 = Array([1,2,3])
       return self.data.sort()    # self.data.sort(reverse = True) 为降序 
   ```
 
-时间复杂度：
+### 时间复杂度：
 
 - 在数组的**末尾插入/删除**、**更新**、**获取**某个位置的元素，都是 O(1) 的时间复杂度
 - 在数组的任何其它地方**插入/删除**元素，都是 O(n) 的时间复杂度
-
-空间复杂度：O(n)
+- 空间复杂度：O(n)
 
 ## Linked List
+
+### 实现
 
 单向链表:
 
@@ -309,12 +312,14 @@ l1.add(2)
           head = head.next
   ```
   
-  时间复杂度：
+### 时间复杂度：
   
-     - 在链表的**首部插入/移除结点**、获得**链表首部的值**，都是O(1)时间复杂度
-     - 获取/移除/插入任一结点、尾部结点，都是O(n)时间复杂度
+- 在链表的**首部插入/移除结点**、获得**链表首部的值**，都是O(1)时间复杂度
+- 获取/移除/插入任一结点、尾部结点，都是O(n)时间复杂度
 
 ## Stack
+
+### 操作实现
 
 使用数组实现栈（使用 Python 的 list 实现）：
 
@@ -370,9 +375,12 @@ s1.push(2)
       return self.data == []
   ```
 
+### 介绍
 栈满足**后进先出 LIFO**的原则，时间复杂度：压栈、出栈都是 O(1)
 
 ## Queue
+
+### 单链队列实现
 
 **单链队列**，使用 Python 中的列表 List 实现：
 
@@ -406,8 +414,10 @@ s1.push(2)
   def is_empty(self):
       return self.data == []
   ```
+  
+### 介绍
 
-时间复杂度：出队列使用了列表的 ```pop(0)``` 方法，故时间复杂度为 O(n)；入队列采用了列表的 ```append()``` 方法，故时间复杂度为 O(1)
+队列满足**先进先出 FIFO** 的原则。时间复杂度：出队列使用了列表的 ```pop(0)``` 方法，故时间复杂度为 O(n)；入队列采用了列表的 ```append()``` 方法，故时间复杂度为 O(1)
 
 采用**循环队列（Circular Queue）**，可以将出队和入队的时间复杂度都降到 O(1)。循环队列有一个最大长度```max_size```，仍然采用列表实现。两个成员变量```front```和```rear```分别为队首元素和下一个入队的元素在列表中的索引。为了区别队列为空和队列为满，列表大小应为```length = max_size + 1```，列表中最多只能有```max_size```个队列元素。
 
@@ -418,6 +428,8 @@ s1.push(2)
 获得**当前队列长度**：**(rear - front + length) % length**
 
 使用循环队列的方法，由于入队和出队操作都是直接通过索引访问列表，所以时间复杂度都是 O(1)
+
+### 循环队列
 
 ```
 class CircularQueue:
@@ -492,3 +504,20 @@ class CircularQueue:
   def is_empty(self):
       return self.front == self.rear
   ```
+
+## Binary Tree
+
+### 基本概念
+
+- 结点、父结点、子结点、兄弟结点；结点的度：结点的子树个数
+- 层数、深度、高度
+- 满二叉树、完全二叉树
+
+### 二叉树的遍历
+
+- 深度优先搜索（Depth First Search, DFS）
+	- 前序遍历 PreOrder Traversal
+    - 中序遍历 InOrder Traversal
+    - 后序遍历 PostOrder Traversal
+- 广度优先搜索（Breadth First Search, BFS）
+	- 层次遍历 LevelOrder Traversal
