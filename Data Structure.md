@@ -601,7 +601,27 @@ class treeNode:
            return res1
        ```
   
-     - 使用两个栈实现，这个思路也比较易于理解。后序遍历是“左-右-根”，所以对于一个栈来说，应该先push根结点，然后push右结点，最后push左结点。
+     - 使用两个栈实现，这个思路也比较易于理解。后序遍历是“左-右-根”，所以对于一个栈来说，应该先push根结点，然后push右结点，最后push左结点：
+       
+       ```py
+       def postorder_wh2(root):
+           if root is None:
+               return []
+           res = []
+           nodestack = [root]
+           while nodestack:
+               root = nodestack.pop()
+               res.append(root)
+               if root.left:
+                   nodestack.append(root.left)
+               if root.right:
+                   nodestack.append(root.right)
+           # 此时res中存放了倒序的结点，使用res1将其倒序输出并取结点的值
+           res1 = []
+           for i in range(len(res)):
+               res1.append(res.pop().val)
+           return res1
+       ```
 
 ## 参考
 
