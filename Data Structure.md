@@ -6,7 +6,7 @@
 
 使用 Python 的 List（列表）实现：
 
-```
+```py
 class Array:
     def __init__(self, x):
         self.data = list(x)
@@ -16,14 +16,14 @@ array1 = Array([1,2,3])
 
 - size() —— 数组元素的个数
   
-  ```
-  def size(self):
+  ```py
+    def size(self):
       return len(self.data)
   ```
 
 - is_empty() —— 判断数组是否为空
   
-  ```
+  ```py
   def is_empty(self):
       return True if not self.data else False
       # other ways: 1. self.data == [] ; 2. len(self.data) == 0
@@ -31,7 +31,7 @@ array1 = Array([1,2,3])
 
 - at(index) —— 返回对应索引的元素，若越界则报错
   
-  ```
+  ```py
   def at(self,index):
       if index >= len(self.data):
           raise IndexError("Array index out of range.")
@@ -40,35 +40,35 @@ array1 = Array([1,2,3])
 
 - push(item) —— 在数组末尾插入元素
   
-  ```
+  ```py
   def push(self,item):
       self.data.append(item)
   ```
 
 - insert(index, item) —— 在指定索引中插入元素，并把后面的元素依次后移
   
-  ```
+  ```py
   def insert(self, index, item):
       self.data.insert(index, item)
   ```
 
 - pop() —— 删除在数组末端的元素，并返回其值
   
-  ```
+  ```py
   def pop(self):
       return self.data.pop()
   ```
 
 - delete(index) —— 删除指定索引的元素，并把后面的元素依次前移
   
-  ```
+  ```py
   def delete(self,index):
       self.data.pop(index)
   ```
 
 - remove(item) —— 删除指定值的元素，并返回其索引（即使有多个元素）
   
-  ```
+  ```py
   def remove(self, item):
       index_list = []
       item_count = self.data.count(item)
@@ -80,7 +80,7 @@ array1 = Array([1,2,3])
 
 - find(item) —— 寻找指定值的元素并返回其中第一个出现的元素其索引，若未找到则返回 -1
   
-  ```
+  ```py
   def find(self, item):
       if item in self.data:
           return self.data.index(item)
@@ -90,7 +90,7 @@ array1 = Array([1,2,3])
 
 - reverse() —— 翻转数组
   
-  ```
+  ```py
   def reverse(self):
       temp = []
       size = len(self.data)
@@ -101,7 +101,7 @@ array1 = Array([1,2,3])
 
 - sort() —— 数组排序（升序） O(nlogn)
   
-  ```
+  ```py
   def sort(self):
       return self.data.sort()    # self.data.sort(reverse = True) 为降序 
   ```
@@ -118,7 +118,7 @@ array1 = Array([1,2,3])
 
 单向链表:
 
-```
+```py
 class listNode:        # 链表中的结点
     def __init__(self, x):
         self.val = x
@@ -135,7 +135,7 @@ l1.add(2)
 
 - size() —— 返回链表中数据元素的个数/链表长度
   
-  ```
+  ```py
   def size(self):
       size = 0
       head = self.head
@@ -147,14 +147,14 @@ l1.add(2)
 
 - empty() —— 若链表为空则返回一个布尔值 true
   
-  ```
+  ```py
   def empty(self):
       return True if self.head else False
   ```
 
 - value_at(index) —— 返回第 n 个元素的值（从0开始计算），若索引超过链表长度则报错
   
-  ```
+  ```py
   def value_at(self, index):
       if not self.head:
           raise IndexError("Index out of range.")
@@ -169,7 +169,7 @@ l1.add(2)
 
 - add(value) —— 添加元素到链表的首部
   
-  ```
+  ```py
   def add(self, value):
       new_node = listNode(value)
       new_node.next = self.head
@@ -178,7 +178,7 @@ l1.add(2)
 
 - pop_front() —— 删除首部元素并返回其值，若链表为空则报错
   
-  ```
+  ```py
   def pop_front(self):
       if not self.head:
           raise IndexError("Pop from empty list")
@@ -189,7 +189,7 @@ l1.add(2)
 
 - append(value) —— 添加元素到链表的尾部
   
-  ```
+  ```py
   def append(self, value):
       new_node = listNode(value)
       if not self.head:
@@ -203,7 +203,7 @@ l1.add(2)
 
 - pop_back() —— 删除尾部元素并返回其值，若链表为空则报错
   
-  ```
+  ```py
   def pop_back(self):
       if not self.head:
           raise IndexError("Pop from empty list")
@@ -221,7 +221,7 @@ l1.add(2)
 
 - front() —— 返回首部元素的值，若链表为空则报错
   
-  ```
+  ```py
   def front(self):
       if not self.head:
           raise ValueError("Linked list is empty")
@@ -230,7 +230,7 @@ l1.add(2)
 
 - back() —— 返回尾部元素的值，若链表为空则报错
   
-  ```
+  ```py
   def back(self):
       if not self.head:
           raise ValueError("Linked list is empty")
@@ -242,7 +242,7 @@ l1.add(2)
 
 - insert(index, value) —— 插入值到指定的索引，若索引超出链表长度则报错
   
-  ```
+  ```py
   def insert(self, index, value):
       if not self.head:
           raise IndexError("Index out of range")
@@ -264,7 +264,7 @@ l1.add(2)
 
 - erase(index) —— 删除指定索引的节点，若索引超出链表长度则报错
   
-  ```
+  ```py
   def erase(self, index):
       if not self.head:
           raise IndexError("Index out of range")
@@ -282,7 +282,7 @@ l1.add(2)
 
 - reverse() —— 逆序链表
   
-  ```
+  ```py
   def reverse(self):
       prev = None
       head = self.head
@@ -296,7 +296,7 @@ l1.add(2)
 
 - remove(value) —— 删除链表中指定值的第一个元素
   
-  ```
+  ```py
   def remove(self,value):
       if not self.head:
           return
@@ -323,7 +323,7 @@ l1.add(2)
 
 使用数组实现栈（使用 Python 的 list 实现）：
 
-```
+```py
 class Stack:
     def __init__(self):
         self.data = []
@@ -335,25 +335,24 @@ s1.push(2)
 
 - push(item) —— 向栈顶添加元素
   
-  ```
+  ```py
   def push(self, item):
       self.data.append(item)
   ```
 
 - pop() —— 弹出栈顶的元素，若栈为空则报错
   
-  ```
+  ```py
   def pop(self):
       if self.data:
           return self.data.pop()
       else:
           raise PopError("Pop from empty stack.")
-  `
   ```
 
 - peek() —— 返回栈顶的元素（但是不弹出），若栈为空则报错
   
-  ```
+  ```py
   def peek(self):
       if self.data:
           return self.data[-1]
@@ -363,14 +362,14 @@ s1.push(2)
 
 - size() —— 返回栈的长度
   
-  ```
+  ```py
   def size(self):
       return len(self.data)
   ```
 
 - is_empty() —— 判断栈是否为空
   
-  ```
+  ```py
   def is_empty(self):
       return self.data == []
   ```
@@ -387,14 +386,14 @@ s1.push(2)
 
 - enqueue(item) —— 将一个元素入队（在队尾添加元素）
   
-  ```
+  ```py
   def enqueue(self, item):
       self.data.append(item)
   ```
 
 - dequeue() —— 将队首的元素出队，若队列为空则报错
   
-  ```
+  ```py
   def dequeue(self):
       if self.data:
           return self.data.pop(0)
@@ -404,14 +403,14 @@ s1.push(2)
 
 - size() —— 返回队列长度
   
-  ```
+  ```py
   def size(self):
       return len(self.data)
   ```
 
 - is_empty() —— 判断队列是否为空
   
-  ```
+  ```py
   def is_empty(self):
       return self.data == []
   ```
@@ -432,7 +431,7 @@ s1.push(2)
 
 ### 循环队列
 
-```
+```py
 class CircularQueue:
     def __init__(self, max_size = 6):
         self.data = [None]*(max_size+1)
@@ -442,14 +441,14 @@ class CircularQueue:
 
 - get_max_size() —— 获得队列的最大长度
   
-  ```
+  ```py
   def get_max_size(self):
       return len(self.data) - 1
   ```
 
 - enqueue_strict(item) —— 入队操作，如果队列已满则报错
   
-  ```
+  ```py
   def enqueue_strict(self, item):
       if (self.rear+1) % len(self.data) == self.front:
           raise SizeError("Queue is full. Unable to enqueue.")
@@ -459,7 +458,7 @@ class CircularQueue:
 
 - dequeue_strict() —— 出队操作，如果队列为空则报错
   
-  ```
+  ```py
   def dequeue_strict(self):
       if self.front == self.rear:
           raise SizeError("Queue is empty. Unable to dequeue.")
@@ -470,7 +469,7 @@ class CircularQueue:
 
 - enqueue(item) —— 入队操作，如果已满则扩容为原来队列大小的两倍再入队
   
-  ```
+  ```py
   def enqueue(self, item):
       if (self.rear+1) % len(self.data) == self.front:
           self.resize(self.get_max_size() * 2)
@@ -480,7 +479,7 @@ class CircularQueue:
 
 - dequeue() —— 出队操作，检测如果队列大小等于列表大小的1/4，并且列表大小大于等于2，则减小列表大小为原来的一半以节省空间开销
   
-  ```
+  ```py
   def dequeue(self):
       if self.front == self.rear:
           raise SizeError("Queue is empty. Unable to dequeue.")
@@ -494,14 +493,14 @@ class CircularQueue:
 
 - size() —— 返回队列的当前大小
   
-  ```
+  ```py
   def size(self):
       return (self.rear - self.front + len(self.data)) % len(self.data)
   ```
 
 - is_empty() —— 判断队列是否为空
   
-  ```
+  ```py
   def is_empty(self):
       return self.front == self.rear
   ```
@@ -516,7 +515,7 @@ class CircularQueue:
 
 ### 二叉树的遍历
 
-```
+```py
 class treeNode:
     def __init__(self, x):
         self.val = x
@@ -528,49 +527,49 @@ class treeNode:
   
      - 前序遍历 PreOrder Traversal：根-左结点-右结点
        
-       ```
+       ```py
        def preorder(root):
-         if root is None:
-             return []
-         return [root.val] + preorder(root.left) + preorder(root.right)
+           if root is None:
+               return []
+           return [root.val] + preorder(root.left) + preorder(root.right)
        ```
   
      - 中序遍历 InOrder Traversal：左结点-根-右结点
        
-       ```
+       ```py
        def inorder(root):
-         if root is None:
-             return []
-         return inorder(root.left) + [root.val] + inorder(root.right)
+           if root is None:
+               return []
+           return inorder(root.left) + [root.val] + inorder(root.right)
        ```
   
      - 后序遍历 PostOrder Traversal：左结点-右结点-根
        
-       ```
+       ```py
        def postorder(root):
-         if not root:
-             return []
-         return postorder(root.left) + postorder(root.right) + [root.val]
+           if not root:
+               return []
+           return postorder(root.left) + postorder(root.right) + [root.val]
        ```
 
 - 广度优先搜索（Breadth First Search, BFS）
   
      - 层次遍历 LevelOrder Traversal
        
-       ```
+       ```py
        def level_order(root):
-         if not root:
-             return []
-         res = []
-         nodequeue = [root]
-         while nodequeue:
-             root = nodequeue.pop(0)
-             res.append(root.val)
-             if root.left:
-                 nodequeue.append(root.left)
-             if root.right:
-                 nodequeue.append(root.right)
-         return res
+           if not root:
+               return []
+           res = []
+           nodequeue = [root]
+           while nodequeue:
+               root = nodequeue.pop(0)
+               res.append(root.val)
+               if root.left:
+                   nodequeue.append(root.left)
+               if root.right:
+                   nodequeue.append(root.right)
+           return res
        ```
 
 **时间复杂度**：需要遍历每个结点，故为O(n)
