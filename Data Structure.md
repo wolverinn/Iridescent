@@ -581,7 +581,7 @@ class treeNode:
      - 前序遍历是“根-左-右”，稍微改一下，就可以变成“根-右-左”，而将最后的结果倒序输出，就是后序遍历“左-右-根”的顺序了。时间复杂度依然为 O(n)：
        
        ```py
-       def postorder_wh(root):
+       def postorder_wh1(root):
            if root is None:
                return []
            res = []
@@ -597,7 +597,7 @@ class treeNode:
            # res1 用来存放 res 的倒序输出
            res1 = []
            for i in range(len(res)):
-               res1.append(res[len(res)-1-i])
+               res1.append(res.pop())
            return res1
        ```
   
@@ -625,9 +625,9 @@ class treeNode:
 
 ### 二叉搜索树
 
-也叫二叉查找树（Binary Search Tree，BST），特性是每个结点的值都比左子树大，比右子树小
+也叫二叉查找树（Binary Search Tree，BST），特性是每个结点的值都比左子树大，比右子树小。**中序遍历是递增的**
 
-- find_item(item, root) —— 寻找树中等于某个值的结点，利用BST的特性，若一个结点比该值大，则往结点的左边寻找，若一个结点比该值小，则往结点的右边寻找
+- find_item(item, root) —— 寻找树中等于某个值的结点，利用BST的特性，若一个结点比该值大，则往结点的左边寻找，若一个结点比该值小，则往结点的右边寻找。时间复杂度为 O(log n)
 
 ```py
 def find_item(item, root):
@@ -677,6 +677,31 @@ def add_node(value, root):
         root.left = add_node(value, root.left)  # 递归插入左子树
     else:
         pass  # 如果value已经存在，则什么也不做
+    return root
+```
+
+- delete_node(value, root) —— 删除一个结点，分三种情况：
+     - 要删除的是叶结点：直接删除，将父结点的指针指向None
+     - 要删除的结点只有一个子结点：直接将父结点的指针指向这个子结点
+     - 要删除的结点有左、右两个结点（最复杂的情况）：选取另一结点代替被删结点——右子树的最小元素或左子树的最大元素。可以看到，右子树的最小元素或左子树的最大元素都是最多只有一个子结点，因此对它们的删除操作也很简单
+
+```py
+def delete_node(value, root):
+    if not root:
+        return None  # 说明要删除的元素未找到
+    if value < root.val:
+        root.left = delete_node(value, root.left)  # 左子树递归删除
+    elif value > root.val:
+        root.right = delete_node(value, root.right)  # 右子树递归删除
+    else:  # 说明已经找到要删除的结点了
+        if not root.left:  # 只有右子树或者没有子结点
+            return root.right
+        elif not root.right:  # 只有左子树
+            return root.left
+        else:  # 有左右两个结点
+            temp = find_min(root.right)  # 在右子树中找到最小的元素
+            root.val = temp.val
+            root.right = delete_node(temp.val, root.right)
     return root
 ```
 
