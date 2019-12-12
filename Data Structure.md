@@ -311,9 +311,9 @@ l1.add(2)
               return
           head = head.next
   ```
-  
+
 ### 时间复杂度：
-  
+
 - 在链表的**首部插入/移除结点**、获得**链表首部的值**，都是O(1)时间复杂度
 - 获取/移除/插入任一结点、尾部结点，都是O(n)时间复杂度
 
@@ -376,13 +376,14 @@ s1.push(2)
   ```
 
 ### 介绍
+
 栈满足**后进先出 LIFO**的原则，时间复杂度：压栈、出栈都是 O(1)
 
 ## Queue
 
 ### 单链队列实现
 
-**单链队列**，使用 Python 中的列表 List 实现：
+使用 Python 中的列表 List 实现：
 
 - enqueue(item) —— 将一个元素入队（在队尾添加元素）
   
@@ -414,7 +415,7 @@ s1.push(2)
   def is_empty(self):
       return self.data == []
   ```
-  
+
 ### 介绍
 
 队列满足**先进先出 FIFO** 的原则。时间复杂度：出队列使用了列表的 ```pop(0)``` 方法，故时间复杂度为 O(n)；入队列采用了列表的 ```append()``` 方法，故时间复杂度为 O(1)
@@ -515,9 +516,68 @@ class CircularQueue:
 
 ### 二叉树的遍历
 
-- 深度优先搜索（Depth First Search, DFS）
-	- 前序遍历 PreOrder Traversal
-    - 中序遍历 InOrder Traversal
-    - 后序遍历 PostOrder Traversal
+```
+class treeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+```
+
+- 深度优先搜索（Depth First Search, DFS）（非递归的版本在完整代码中）
+  
+     - 前序遍历 PreOrder Traversal：根-左结点-右结点
+       
+       ```
+       def preorder(root):
+         if root is None:
+             return []
+         return [root.val] + preorder(root.left) + preorder(root.right)
+       ```
+  
+     - 中序遍历 InOrder Traversal：左结点-根-右结点
+       
+       ```
+       def inorder(root):
+         if root is None:
+             return []
+         return inorder(root.left) + [root.val] + inorder(root.right)
+       ```
+  
+     - 后序遍历 PostOrder Traversal：左结点-右结点-根
+       
+       ```
+       def postorder(root):
+         if not root:
+             return []
+         return postorder(root.left) + postorder(root.right) + [root.val]
+       ```
+
 - 广度优先搜索（Breadth First Search, BFS）
-	- 层次遍历 LevelOrder Traversal
+  
+     - 层次遍历 LevelOrder Traversal
+       
+       ```
+       def level_order(root):
+         if not root:
+             return []
+         res = []
+         nodequeue = [root]
+         while nodequeue:
+             root = nodequeue.pop(0)
+             res.append(root.val)
+             if root.left:
+                 nodequeue.append(root.left)
+             if root.right:
+                 nodequeue.append(root.right)
+         return res
+       ```
+
+**时间复杂度**：需要遍历每个结点，故为O(n)
+
+**空间复杂度**：由于每个结点都要先进行存储再弹出，故空间复杂度为O(n)
+
+## 参考
+
+- [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
+- [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
