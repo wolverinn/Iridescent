@@ -623,9 +623,13 @@ class treeNode:
            return res1
        ```
 
-### 二叉搜索树
+## Binary Search Tree
 
-也叫二叉查找树（Binary Search Tree，BST），特性是每个结点的值都比左子树大，比右子树小。**中序遍历是递增的**
+### 介绍
+
+二叉搜索树，也叫二叉查找树（Binary Search Tree，BST），特性是每个结点的值都比左子树大，比右子树小。**中序遍历是递增的**
+
+### 实现
 
 - find_item(item, root) —— 寻找树中等于某个值的结点，利用BST的特性，若一个结点比该值大，则往结点的左边寻找，若一个结点比该值小，则往结点的右边寻找。时间复杂度为 O(log n)
 
@@ -704,6 +708,25 @@ def delete_node(value, root):
             root.right = delete_node(temp.val, root.right)
     return root
 ```
+
+## 平衡查找树
+
+### 介绍
+
+使用二叉搜索树对某个元素进行查找，虽然平均情况下的时间复杂度是 O(log n)，但是最坏情况下（当所有元素都在树的一侧时）的时间复杂度是 O(n)。因此有了**平衡查找树（Balanced Search Tree）**，平均和最坏情况下的时间复杂度都是 O(log n)
+
+平衡因子（Balance Factor, BF）的概念：左子树高度与右子树高度之差
+
+平衡查找树有很多不同的实现方式：
+
+- AVL 树
+- 伸展树
+- 红黑树
+- B树
+
+### AVL 树
+
+也叫平衡二叉树（Balanced Binary Tree），AVL是提出这种数据结构的数学家。概念是对于所有结点，BF 的绝对值小于等于1，即左、右子树的高度之差的绝对值小于等于1
 
 ## 参考
 
