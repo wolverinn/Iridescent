@@ -789,7 +789,7 @@ B树英文是 **B-Tree**，所以中文的B树或者B-树都是同一个东西�
 
 1. B树的数据结构定义
 
-对于一个 **m-阶** 的B树：
+B树是一种多路搜索树，对于一个 **m-阶** 的B树：
 
 - Every node has at most *m* children. 每个结点最多有m个子结点
 - Every non-leaf node (except root) has at least ⌈*m*/2⌉ child nodes. 每个结点（除了根结点）最少有⌈*m*/2⌉个子结点
@@ -799,7 +799,7 @@ B树英文是 **B-Tree**，所以中文的B树或者B-树都是同一个东西�
 
 ![B-tree order-5](_v_images/20191215105932908_17164.jpg)
 
-从定义中可以看出，B树和其它的平衡查找树的最大区别就是不再是一个二叉树，每个结点可以存放多个值（key），并且指向多个子结点。具体地说，一个结点中存放的数据结构为：(n，a0，K1，a1，K2，…，Kn，an)，其中 n 代表这个结点含有的 key 的个数，Ki 代表存放的key（也就是二叉树中的value，比如2，23，57...），按升序排列，ai 则是指向子结点的指针，并且 ai 指向的子结点中存放的 key 值总是大于等于 ai 左边的 key 小于等于 ai 右边的 key。比如a1指向的子结点中存放的元素一定介于K1和K2之间。
+从定义中可以看出，B树和其它的平衡查找树的最大区别就是不再是一个二叉树，每个结点可以存放多个值（key），并且指向多个子结点。具体地说，一个结点中存放的数据结构为：(n，a0，K1，a1，K2，…，Kn，an)，其中 n 代表这个结点含有的 key 的个数，Ki 代表存放的key（也就是二叉树中的value，比如2，23，57...），按升序排列，ai 则是指向子结点的指针，并且 ai 指向的子结点中存放的 key 值总是大于 ai 左边的 key 小于 ai 右边的 key（注意是开区间）。比如a1指向的子结点中存放的元素一定介于K1和K2之间。
 
 B树比起平衡搜索树更加矮胖，这样做大大减小了树的高度，在B树中插入时，B树的高度也会增长得很缓慢，因为每一层都可以容纳很多元素。在最好的情况下，每个结点都被填满，即存放了 m - 1 个元素，最好情况下，B树的高度为：
 
@@ -828,21 +828,34 @@ B树的查找类似于二叉搜索树的查找，在每个结点，找到待查�
 - 把小于中位数的元素放在分裂出来的左结点，大于中位数的元素放在右结点；
 
 - 这个中位数则插入该结点的父结点。如果父结点已满，继续往上分裂；如果没有父结点，则创造一个新的父结点（会增加树的高度）
+
+这个网站提供了B树的可视化操作：[BTree Visualization](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
+
 3. B树的删除
 
 参考：
-    - [B树的删除操作（视频）](https://www.youtube.com/watch?v=svfnVhJOfMc&index=8&list=PLA5Lqm4uh9Bbq-E0ZnqTIa8LRaL77ica6)
-    - [B树和B+树的插入、删除图文详解](https://www.cnblogs.com/nullzx/p/8729425.html)
 
+- [B树的删除操作（视频）](https://www.youtube.com/watch?v=svfnVhJOfMc&index=8&list=PLA5Lqm4uh9Bbq-E0ZnqTIa8LRaL77ica6)
+
+- [B树和B+树的插入、删除图文详解](https://www.cnblogs.com/nullzx/p/8729425.html)
 4. B+ 树
 
-B+ 树是B 树的变种。
+B+ 树是B 树的变种。广泛用于各种文件系统和数据库引擎中。B+ 树的定义与B树基本相同，不同的地方在于：
+
+- 如果一个结点有k个key，那它有k个子结点
+
+- 子结点中的数据**大于等于**左边的key小于右边的key
+
+- 叶结点中以链表（有序）的形式存放了所有的数据，也包含中间结点的key（因此，B+树的搜索总是会到达叶结点，中间结点不保存数据，只是用来索引的）
+
+![B+ Tree(m=3)](_v_images/20191215153515581_13031.png)
 
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
 - [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
 - [二叉树的后序遍历-非递归版本-四种方法python - CSDN](https://blog.csdn.net/u012435142/article/details/89062177)
+- [B-树、B+树以及B*树的原理详解](https://blog.csdn.net/qq_41618510/article/details/83214711)
 
 ### 待完成
 
