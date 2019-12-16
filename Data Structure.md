@@ -926,13 +926,30 @@ def build_heap(self, array):
         index -= 1
 ```
 
+## Trie
+
+了解原理，但可以不用使用代码实现。Trie 是取自 Information *Retrieval*，一般读作“try”以免与数据结构“tree”相混淆。中文叫做前缀树或字典树，主要用于存储字符串，它和集合以及哈希表相比的优势在于：
+
+- 字典树的时间复杂度是 O(L)，L是字符串的长度
+- 集合和哈希表只能找到精准匹配的字符串，但是字典树可以通过前缀查找字符串，还能查找有字符缺失/错误的字符串，进行模糊匹配
+
+字典树有以下特点：
+
+- 根节点代表空字符串，每个节点都有 N 条链接
+- 节点不存储字符，只有路径才存储
+- 从根节点开始到任意一个节点，将沿途经过的字符连接起来就是该节点对应的字符串
+
+![Trie](_v_images/20191216153251730_19904.png)
+
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
 - [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
 - [二叉树的后序遍历-非递归版本-四种方法python - CSDN](https://blog.csdn.net/u012435142/article/details/89062177)
 - [B-树、B+树以及B*树的原理详解](https://blog.csdn.net/qq_41618510/article/details/83214711)
+- [Tutorials - Using Tries](https://www.topcoder.com/community/competitive-programming/tutorials/using-tries/)
 
 ### 待完成
 
 - [ ] AVL 插入/删除代码实现（MOOC/CS-Interview-Knowledge-Map）
+- [ ] Residual：哈夫曼树（MOOC）
