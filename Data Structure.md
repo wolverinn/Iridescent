@@ -516,22 +516,8 @@ class treeNode:
        ```
   
      - 中序遍历 InOrder Traversal：左结点-根-右结点
-       
-       ```py
-       def inorder(root):
-           if root is None:
-               return []
-           return inorder(root.left) + [root.val] + inorder(root.right)
-       ```
   
      - 后序遍历 PostOrder Traversal：左结点-右结点-根
-       
-       ```py
-       def postorder(root):
-           if not root:
-               return []
-           return postorder(root.left) + postorder(root.right) + [root.val]
-       ```
 
 - 广度优先搜索（Breadth First Search, BFS）
   
@@ -954,6 +940,16 @@ def build_heap(self, array):
 
 应用场景举例：计算机{1,2,3,...,10}之间的连接，已经有以下连接：1-3, 2-5, 1-4, 6-9 ... 求某两个计算机之间是否有连接
 
+## Hashing
+### 基本思想
+设计一个散列函数，计算出关键字对应的函数值，作为数据对象的存储地址。对某个关键字进行查找时，通过散列函数得到地址，实现 O(1) 的时间复杂度。需要解决哈希冲突（Collision）的问题：即两个关键字映射到同一地址。
+
+散列函数最好计算高效，且映射之后对应的地址空间最好分布均匀以减少冲突。举例：
+- 数字：取模；平方取中法；折叠法（把数字拆分再相加）
+- 字符：ASCII码加和再取模
+
+散列方法的存储对关键字是随机的，不适用于顺序查找关键字，不适用于最大/最小值查找或范围查找
+
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
@@ -966,3 +962,4 @@ def build_heap(self, array):
 
 - [ ] AVL 插入/删除代码实现（MOOC/CS-Interview-Knowledge-Map）
 - [ ] Residual：哈夫曼树（MOOC）
+- [ ] 哈希冲突的解决（MOOC/博客）
