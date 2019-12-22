@@ -940,11 +940,17 @@ def build_heap(self, array):
 
 应用场景举例：计算机{1,2,3,...,10}之间的连接，已经有以下连接：1-3, 2-5, 1-4, 6-9 ... 求某两个计算机之间是否有连接
 
-## Hashing
+## Hash Table
 ### 基本思想
 用于存储key对应的value，给定key，能够在非常快速的时间内找到value
 
-设计一个散列函数，计算出关键字key对应的函数值hashcode，作为数据对象value的存储地址。对某个关键字进行查找时，通过散列函数得到地址（或者是array的索引），通过索引访问数组直接得到这个key对应的value，实现 O(1) 的时间复杂度。需要解决哈希冲突（Collision）的问题：即两个关键字映射到同一地址。一种解决办法是在产生冲突的地方使用链表存储，会带来新的问题就是如何确定key对应的value是链表中的哪个，所以这种情况下链表中不仅要存储value，也要存储key，也就是需要有两个field，既存储key，也存储value
+设计一个散列函数，计算出关键字key对应的函数值hashcode，作为数据对象value的存储地址。对某个关键字进行查找时，通过散列函数得到地址（或者是array的索引），通过索引访问数组直接得到这个key对应的value，实现 O(1) 的时间复杂度。需要解决**哈希冲突**（Collision）的问题：即两个关键字映射到同一地址。一种解决办法是在产生冲突的地方使用链表存储，会带来新的问题就是如何确定key对应的value是链表中的哪个，所以这种情况下链表中不仅要存储value，也要存储key，也就是需要有两个field，既存储key，也存储value
+
+主要功能实现：
+- hash_code(key)
+- insert(key, value)
+- find(key)
+- remove(key)
 
 如果同一个key要插入不同的value，有几种解决方式：一种是新插入的总是覆盖之前的value，一种是允许一个key存在多个value，查找时随机返回一个value，或者使用find_all返回所有value
 
@@ -953,7 +959,7 @@ def build_heap(self, array):
 - 一个比较好的方法：```h(key) = (((a*key + b) mod p) mod N)```；p是一个远大于N 的素数（促进均匀分布），N是存储空间的长度（数组的长度）
 - 字符：ASCII码加和再取模（很多冲突）
 - 一个比较好的方法（最终的hashcode取决于每个字符）：
-```
+```py
 def hash_code(string_a, N):
     hash_val = 0
     for i in range(len(string_a)):
@@ -961,13 +967,14 @@ def hash_code(string_a, N):
     return hash_val % N
 ```
 
-填充因子：n/N，已填充/总空间；当填充因子变大时，会失去常数时间的效率，所以需要resize：遍历原来的哈希表，re-hash所有的key，再把value存到新的哈希表的对应位置。当填充因子变小时，也需要resize释放内存
+填充因子：n/N，已填充（已有的key的数量）/总空间；当填充因子变大时，会失去常数时间的效率，所以需要resize：遍历原来的哈希表，re-hash所有的key，再把value存到新的哈希表的对应位置。当填充因子变小时，也需要resize释放内存
 
 散列方法的存储对关键字是随机的，不适用于顺序查找关键字，不适用于最大/最小值查找或范围查找
 
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
+- [jwasham/coding-interview-university: A complete computer science study plan to become a software engineer.](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)
 - [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
 - [二叉树的后序遍历-非递归版本-四种方法python - CSDN](https://blog.csdn.net/u012435142/article/details/89062177)
 - [B-树、B+树以及B*树的原理详解](https://blog.csdn.net/qq_41618510/article/details/83214711)
@@ -977,4 +984,5 @@ def hash_code(string_a, N):
 
 - [ ] AVL 插入/删除代码实现（MOOC/CS-Interview-Knowledge-Map）
 - [ ] Residual：哈夫曼树（MOOC）；双端队列deques
-- [ ] 哈希冲突的解决（MOOC/博客）([CYC2018](https://github.com/CyC2018/CS-Notes/blob/master/notes/算法%20-%20符号表.md#2-拉链法))
+- [ ] 哈希冲突的解决（MOOC/[博客](https://blog.csdn.net/weixin_41167848/article/details/91356737)）([CYC2018](https://github.com/CyC2018/CS-Notes/blob/master/notes/算法%20-%20符号表.md#2-拉链法))
+- [ ] 图：拓扑排序/DFS/BFS/最短路径/最小生成树MST
