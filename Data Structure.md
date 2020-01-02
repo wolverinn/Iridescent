@@ -927,9 +927,9 @@ def build_heap(self, array):
 
 ![Trie](_v_images/20191216153251730_19904.png)
 
-## 并查集
+## Union-Find
 
-顾名思义，就是实现集合的**并**、以及**查**元素属于哪个集合的功能。使用树形结构（不是树这种数据结构）表示并查集，每个结点代表一个集合元素，含有一个指向父结点的指针，使用数组实现，数组中每个位置存放该元素的值和父结点在数组中的索引（根结点可以用负数表示）。
+并查集，顾名思义，就是实现集合的**并**、以及**查**元素属于哪个集合的功能。使用树形结构（不是树这种数据结构）表示并查集，每个结点代表一个集合元素，含有一个指向父结点的指针，使用数组实现，数组中每个位置存放该元素的值和父结点在数组中的索引（根结点可以用负数表示）。
 
 ![Union-Find](_v_images/20191216161813757_13914.png)
 
@@ -946,17 +946,16 @@ def build_heap(self, array):
 
 设计一个散列函数，计算出关键字key对应的函数值hashcode，作为数据对象value的存储地址。对某个关键字进行查找时，通过散列函数得到地址（或者是array的索引），通过索引访问数组直接得到这个key对应的value，实现 O(1) 的时间复杂度。需要解决**哈希冲突**（Collision）的问题：即两个关键字映射到同一地址。一种解决办法是在产生冲突的地方使用链表存储，会带来新的问题就是如何确定key对应的value是链表中的哪个，所以这种情况下链表中不仅要存储value，也要存储key，也就是需要有两个field，既存储key，也存储value
 
-主要功能实现：
-- hash_code(key)
-- insert(key, value)
-- find(key)
-- remove(key)
-
 如果同一个key要插入不同的value，有几种解决方式：一种是新插入的总是覆盖之前的value，一种是允许一个key存在多个value，查找时随机返回一个value，或者使用find_all返回所有value
 
+填充因子：n/N，已填充（已有的key的数量）/总空间；当填充因子变大时，会失去常数时间的效率，所以需要resize：遍历原来的哈希表，re-hash所有的key，再把value存到新的哈希表的对应位置。当填充因子变小时，也需要resize释放内存
+
+散列方法的存储对关键字是随机的，不适用于顺序查找关键字，不适用于最大/最小值查找或范围查找
+
+### 散列函数的设计
 散列函数最好计算高效，且映射之后对应的地址空间最好分布均匀以减少冲突。举例：
 - 数字：取模；平方取中法；折叠法（把数字拆分再相加）
-- 一个比较好的方法：```h(key) = (((a*key + b) mod p) mod N)```；p是一个远大于N 的素数（促进均匀分布），N是存储空间的长度（数组的长度）
+- 一个比较好的方法：```hash_code(key) = (((a*key + b) mod p) mod N)```；p是一个远大于N 的素数（促进均匀分布），N是存储空间的长度（数组的长度）
 - 字符：ASCII码加和再取模（很多冲突）
 - 一个比较好的方法（最终的hashcode取决于每个字符）：
 ```py
@@ -967,15 +966,92 @@ def hash_code(string_a, N):
     return hash_val % N
 ```
 
-填充因子：n/N，已填充（已有的key的数量）/总空间；当填充因子变大时，会失去常数时间的效率，所以需要resize：遍历原来的哈希表，re-hash所有的key，再把value存到新的哈希表的对应位置。当填充因子变小时，也需要resize释放内存
+### 哈希冲突
+上面已经说了什么是哈希冲突，这里说一下处理哈希冲突的常用方法：
 
-散列方法的存储对关键字是随机的，不适用于顺序查找关键字，不适用于最大/最小值查找或范围查找
+- 线性探测法：发生冲突后，向前寻找一个空位来存储。注意删除操作应当将右侧所有相邻的键值对重新插入散列表中
+- 拉链法：在发生冲突的位置使用链表存储
+
+这两种方法存储的时候都要同时存储key和value，这样查找的时候才知道是否命中对应的key
+
+### 主要功能实现：
+使用拉链法解决哈希冲突；假设key是数字；如果同一个key插入不同的value，则总是覆盖。
+
+```py
+class listNode:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.next = None
+
+class HashTable:
+    def __init__(self,N):
+        self.size = N
+        self.table = [None] * N
+```
+
+- hash_code(key)：参考上面提到的对应数字和字符串的散列方法
+- insert(key, value)
+
+```py
+def insert(self, key, value):
+    index = self.hash_code(key)
+    head = self.table[index]
+    if not head:  # 如果哈希表对应位置还是空的
+        self.table[index] = listNode(key, value)
+    else:
+        while head.next:
+            head = head.next
+        head.next = listNode(key, value)
+```
+
+- find(key)
+
+```py
+def find(self, key):
+    index = self.hash_code(key)
+    head = self.table[index]
+    if not head:
+        return None
+    else:
+        while head:
+            if head.key == key:
+                return head.value
+            head = head.next
+        return None
+```
+
+- remove(key)
+
+```py
+def remove(self, key):
+    index = self.hash_code(key)
+    head = self.table[index]
+    if not head:
+        return None
+    else:
+        prev = None
+        while head:
+            if head.key == key:
+                next_node = head.next
+                if prev:
+                    prev.next = next_node
+                    return head.value
+                else:
+                    self.table[index] = head.next
+                    return head.value
+            else:
+                prev = head
+                head = head.next
+        return None
+```
 
 ## 参考
 
 - [数据结构_浙江大学_中国大学MOOC](https://www.icourse163.org/course/ZJU-93001)
 - [jwasham/coding-interview-university: A complete computer science study plan to become a software engineer.](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)
 - [CS-Interview-Knowledge-Map/dataStruct-zh](https://github.com/InterviewMap/CS-Interview-Knowledge-Map/blob/master/DataStruct/dataStruct-zh.md)
+- Python数据结构与算法分析（第2版），人民邮电出版社
 - [二叉树的后序遍历-非递归版本-四种方法python - CSDN](https://blog.csdn.net/u012435142/article/details/89062177)
 - [B-树、B+树以及B*树的原理详解](https://blog.csdn.net/qq_41618510/article/details/83214711)
 - [Tutorials - Using Tries](https://www.topcoder.com/community/competitive-programming/tutorials/using-tries/)
@@ -984,5 +1060,4 @@ def hash_code(string_a, N):
 
 - [ ] AVL 插入/删除代码实现（MOOC/CS-Interview-Knowledge-Map）
 - [ ] Residual：哈夫曼树（MOOC）；双端队列deques
-- [ ] 哈希冲突的解决（MOOC/[博客](https://blog.csdn.net/weixin_41167848/article/details/91356737)）([CYC2018](https://github.com/CyC2018/CS-Notes/blob/master/notes/算法%20-%20符号表.md#2-拉链法))
 - [ ] 图：拓扑排序/DFS/BFS/最短路径/最小生成树MST
