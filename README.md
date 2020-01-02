@@ -1,7 +1,13 @@
 # Iridescent
 Solid data structure and algorithms in Python
 
+<div align="center">
+<img src="_v_images/20200102113345622_12587.jpg" width="680px">
+</div>
+
 ## Data Structure
+数据结构我跟的主要知识体系是浙江大学的MOOC《[数据结构](https://www.icourse163.org/course/ZJU-93001)》，以及[这个GitHub仓库](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)中的数据结构部分
+
 #### [数据结构分析](Data%20Structure.md)
 每种数据结构都用Python实现了常用操作，并分析了时间复杂度（其实通过代码也能分析出来），部分复杂的数据结构（红黑树/B树/堆/哈希表...）有我自己学习过程中的一些理解。完整代码在下面的```ipynb```文件中。
 
