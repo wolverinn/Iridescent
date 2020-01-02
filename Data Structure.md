@@ -1,5 +1,25 @@
 # Data Structure
 
+* [数组](#array)
+* [链表](#linked-list)
+* [栈](#stack)
+* [队列](#queue)
+    * 单链队列
+    * 循环队列
+* [二叉树](#binary-tree)
+    * 二叉树的遍历
+    * 后序遍历非递归版本
+* [二叉搜索树](#binary-search-tree)
+* [平衡查找树](#balanced-search-tree)
+    * AVL树
+    * 红黑树
+    * B树和B+树
+* [堆](#heap)
+* [字典树](#trie)
+* [并查集](#union-find)
+* [哈希表](#hash-table)
+* [参考](#参考)
+
 ## Array
 
 ### 功能实现
@@ -17,7 +37,7 @@ array1 = Array([1,2,3])
 - size() —— 数组元素的个数
   
   ```py
-    def size(self):
+  def size(self):
       return len(self.data)
   ```
 
