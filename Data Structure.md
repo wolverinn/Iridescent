@@ -6,6 +6,7 @@
 * [队列](#queue)
     * 单链队列
     * 循环队列
+    * 双端队列
 * [二叉树](#binary-tree)
     * 二叉树的遍历
     * 后序遍历非递归版本
@@ -504,6 +505,24 @@ class CircularQueue:
   def is_empty(self):
       return self.front == self.rear
   ```
+
+### 双端队列(Deque)
+双端队列（Deque）与队列的区别就是，元素可以从两端插入，也可以从两端删除；具备队列与栈的特征，但其中的元素不具备FIFO或者LIFO的顺序，插入和删除操作的规律性需要用户自己维持。
+
+双端队列的一些操作实现，使用Python的列表实现，队首（front）为列表的末尾，队尾（rear）为列表的首部：
+
+```py
+class Deque:
+    def __init__(self):
+        self.data = []
+```
+
+- is_empty()
+- size()
+- add_front(item): ```self.data.append(item)```
+- add_rear(item): ```self.data.insert(0, item)```
+- remove_front(): ```return self.data.pop()```
+- remove_rear(): ```return self.data.pop(0)```
 
 ## Binary Tree
 
@@ -1079,5 +1098,5 @@ def remove(self, key):
 ### 待完成
 
 - [ ] AVL 插入/删除代码实现（MOOC/CS-Interview-Knowledge-Map）
-- [ ] Residual：哈夫曼树（MOOC）；双端队列deques
+- [ ] 哈夫曼树（MOOC）
 - [ ] 图：拓扑排序/DFS/BFS/最短路径/最小生成树MST

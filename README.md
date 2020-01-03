@@ -2,7 +2,7 @@
 Solid data structure and algorithms in Python
 
 <div align="center">
-<img src="_v_images/20200102113345622_12587.jpg" width="680px">
+<img src="_v_images/20200102113345622_12587.jpg" width="640px">
 </div>
 
 ## Data Structure
