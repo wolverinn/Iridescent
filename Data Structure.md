@@ -518,11 +518,11 @@ class Deque:
 ```
 
 - is_empty()
-- size()
-- add_front(item): ```self.data.append(item)```
-- add_rear(item): ```self.data.insert(0, item)```
-- remove_front(): ```return self.data.pop()```
-- remove_rear(): ```return self.data.pop(0)```
+- size() -- 返回队列的大小
+- add_front(item) -- 在队首添加元素: ```self.data.append(item)```
+- add_rear(item) -- 在队尾添加元素: ```self.data.insert(0, item)```
+- remove_front() -- 从队首删除元素: ```return self.data.pop()```
+- remove_rear() -- 从队尾删除元素: ```return self.data.pop(0)```
 
 ## Binary Tree
 
@@ -995,6 +995,50 @@ def build_heap(self, array):
 
 下面用代码实现这种并查集：
 
+```py
+class UnionFind:
+    # 初始化并查集中的元素，默认每个元素的值就是数组下标，每个元素的集合只有自身
+    def __init__(self, N):
+        self.data = list(range(N))  # 存储元素的值
+        self.parent = list(range(N))  # 存储该元素的父结点的数组下标
+        self.size = [1] * N  # 存储以该元素为根的树的大小（树中的元素个数）
+        self.count = N    # 存储集合的个数
+```
+
+- find(value) -- 返回元素的根结点的数组下标
+
+```py
+def find(self, value):    # 返回根结点的下标
+    index = self.data.index(value)
+    while self.parent[index] != index:
+        index = self.parent[index]
+    return index
+```
+
+- union(value1, value2) -- 合并两个元素所属的集合
+
+```py
+def union(self, value1, value2):
+    root1 = self.find(value1)
+    root2 = self.find(value2)
+    if root1 == root2:
+        return
+    if self.size[root1] > self.size[root2]:
+        self.parent[root2] = root1
+        self.size[root1] += self.size[root2]
+    else:
+        self.parent[root1] = root2
+        self.size[root2] + self.size[root1]
+    self.count -= 1
+```
+
+- connected(value1, value2) -- 判断两个元素是否属于同一集合
+
+```py
+def connected(self, value1, value2):
+    return self.find(value1) == self.find(value2)
+```
+
 ## Hash Table
 ### 基本思想
 用于存储key对应的value，给定key，能够在非常快速的时间内找到value
@@ -1045,8 +1089,8 @@ class HashTable:
         self.table = [None] * N
 ```
 
-- hash_code(key)：参考上面提到的对应数字和字符串的散列方法
-- insert(key, value)
+- hash_code(key) -- 计算key的哈希值：参考上面提到的对应数字和字符串的散列方法
+- insert(key, value) -- 在哈希表中插入新的key及其对应的value
 
 ```py
 def insert(self, key, value):
@@ -1060,7 +1104,7 @@ def insert(self, key, value):
         head.next = listNode(key, value)
 ```
 
-- find(key)
+- find(key) -- 寻找key对应的value
 
 ```py
 def find(self, key):
@@ -1076,7 +1120,7 @@ def find(self, key):
         return None
 ```
 
-- remove(key)
+- remove(key) -- 从哈希表中删除一个key及其对应的value
 
 ```py
 def remove(self, key):
