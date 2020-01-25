@@ -8,7 +8,7 @@
 - 思想：最开始，找到数组中最小的元素，将其和数组第一个元素交换位置；然后在剩下的元素中找到最小的元素，将其和数组的第二个元素交换位置，如此往复。。。简单地说，就是不断在剩余元素中选取最小者放到剩余元素的首位。
 - 复杂度：大约会进行N次交换以及N^2次比较
 - 特点：
-    - 运行时间和输入无关；=：不管初始输入是有序数组还是随机排列的数组，排序时间都是一样长的
+    - 运行时间和输入无关；不管初始输入是有序数组还是随机排列的数组，排序时间都是一样长的
     - 数据的移动最少，只需N次移动
 
 Python版：
@@ -123,5 +123,54 @@ func ShellSort(lst []int) []int {
         h /= 3
     }
     return lst
+}
+```
+
+#### 归并排序 Merge Sort
+- 思想：采用了分治算法（divide-and-concur）的思想，将待排序的数组分为两半，对这两半数组**递归**地使用归并排序。两边排好序之后，从首元素开始比较，哪边的元素小就将其取出放入新数组，然后两边的首元素继续比较，最后得到的新数组就是排序好的数组。
+- 时间复杂度：最坏情况下的时间复杂度为O(nlog n)
+
+Python版：
+```py
+def merge_sort(lst):
+    if not lst:
+        return []
+    mid = len(lst) // 2
+    left = merge_sort(lst[:mid])
+    right = merge_sort(lst[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    l, r, res = 0, 0, []
+    while l < len(left) and r < len(right):
+        if left[l] < right[r]:
+            res.append(left[l])
+            l += 1
+        else:
+            res.append(right[r])
+            r += 1
+    return res + left[l:] + right[r:]
+```
+
+Golang版：
+```go
+func Merge(left []int, right []int) []int {
+    var (
+        l = 0
+        r = 0
+        res []int
+    )
+    for l < len(left) && r < len(right) {
+        if left[l] < right[r] {
+            res = append(res, left[l])
+            l += 1
+        } else {
+            res = append(res, right[r])
+            r += 1
+        }
+    }
+    res = append(res, left...)
+    res = append(res, right...)
+    return res
 }
 ```
