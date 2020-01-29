@@ -68,7 +68,7 @@ Golang版：
 ```go
 func InsertionSort(lst []int) []int {
     if len(lst) == 0 {
-            return lst
+        return lst
     }
     for i := 1; i < len(lst); i++ {
         for j := i; j > 0 && lst[j] < lst[j-1]; j-- {
@@ -108,7 +108,7 @@ Golang版：
 ```go
 func ShellSort(lst []int) []int {
     if len(lst) == 0 {
-            return lst
+        return lst
     }
     h := 1
     for h < len(lst)/3 {
@@ -172,5 +172,70 @@ func Merge(left []int, right []int) []int {
     res = append(res, left...)
     res = append(res, right...)
     return res
+}
+
+func MergeSort(lst []int) []int {
+    if len(lst) == 0 {
+        return nil
+    }
+    mid := len(lst) / 2
+    left := MergeSort(lst[:mid])
+    right := MergeSort(lst[mid:])
+    return Merge(left, right)
+}
+```
+
+#### 快速排序 Quick Sort
+- 思想：也是分治的思想。选取数组的第一个元素作为**切分元素**，然后从第二个元素开始，将所有比切分元素小的放在其左边，比切分元素大的放在它的右边，然后对左半部分和右半部分分别递归地调用这个排序的过程，当这两个子数组都有序时整个数组也就有序了。（选取第一个元素为首元素，从第二个元素开始，正序找到第一个比首元素小的，从最后一个元素开始，倒序找到第一个比首元素大的，交换位置，然后继续，直到这两个找到的元素是相邻的，这个时候先交换位置，然后将首元素插入到这两个元素之间，将数组划分为两个需要排序的子问题，递归调用快速排序）
+- 时间复杂度：如果每次选取的切分元素都能正好将数组对半分开，这是最理想的情况，在这种情况下时间复杂度就是O(NlogN)级别，实际情况也差不太多，平均情况是，快速排序的时间复杂度为O(NlogN)；但是在切分不平衡的情况下，快速排序就会变得极为低效，最坏情况下的时间复杂度为O(N^2)；但是如果事先随机打乱数组，则可以避免这种情况，将复杂度又降到O(NlogN)级别
+- 特点：实现简单，一般应用中比其他排序算法都要快得多；原地排序（只需一个很小的辅助栈）
+- 性能提升：在排序小数组的时候，可以选择插入排序，在这种情况下插入排序比快排要快
+
+Python版：
+```py
+import random
+def quick_sort(lst):
+    if not lst:
+        return []
+    random.shuffle(lst)
+    base = lst[0]
+    left = quick_sort([x for x in lst[1:] if x <= base])
+    right = quick_sort([x for x in lst[1:] if x > base])
+    return left + [base] + right
+```
+
+Golang版：
+```go
+import (
+    "time"
+    "math/rand"
+)
+
+func QuickSort(lst []int) {
+    if len(lst) == 0{
+        return nil
+    }
+    rand.Seed(time.Now().UnixNano())
+    rand.Shuffle(len(lst), func(i, j int) {lst[i], lst[j] = lst[j], lst[i]})
+    index := Partition(lst)
+    QuickSort(lst[:index])
+    QuickSort(lst[index+1:])
+}
+
+func Partition(lst []int) (index int) {
+    i := 0
+    j := len(lst)
+    base := lst[0]
+    for i < j {
+        for lst[++i] < base {
+            if i == len(lst)-1 {break}
+        }
+        for lst[--j] > base {
+            if j == 0 {break}
+        }
+        lst[i], lst[j] = lst[j], lst[i]
+    }
+    lst[0], lst[j] = lst[j], lst[0]
+    return j
 }
 ```
