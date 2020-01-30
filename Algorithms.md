@@ -239,3 +239,76 @@ func Partition(lst []int) (index int) {
     return j
 }
 ```
+
+#### 堆排序 Heap Sort
+- 原理：掌握了[数据结构-堆](https://github.com/wolverinn/Iridescent/blob/master/Data%20Structure.md#heap)的原理之后，堆排序的原理就很容易理解了。就是将待排序的数据用来构造出一个堆，然后不断地从堆顶取出元素，就能得到排序结果。这里面涉及到的堆的构造操作以及删除堆顶元素的操作在数据结构部分已经实现过了。在代码实现时，我们可以使用一个最大堆，每次取堆顶元素之后，存放堆的数组就会缩小空出一个位置，我们就将这个元素放在这个末尾的位置，最后整个数组就是从索引1到N排好序的。
+- 时间复杂度：堆的构造操作是O(N)的时间复杂度，而删除操作是O(logN)，由于需要将所有元素全部删除得到排序结果，所以整个排序的复杂度是O(NlogN)
+
+Python版：
+```py
+def sift_down(lst, index, end):
+    while 2*index <= end:
+        # 左子结点的索引
+        child = 2 * index
+        # 如果右子结点存在且比左子结点大，则应与右子结点交换
+        if child + 1 <= end and lst[child+1] > lst[child]:
+            child += 1  # 右子结点的索引
+        # 如果当前结点的值小于子结点中的较大者，则应继续向下交换，否则结束
+        if lst[index] < lst[child]:
+            lst[index], lst[child] = lst[child], lst[index]
+            index = child
+        else:
+            break
+
+def heap_sort(lst):
+    if not lst:
+        return []
+    # 创建堆
+    lst = [None] + lst
+    index = (len(lst) - 1) // 2
+    while index > 0:
+        sift_down(lst, index, len(lst) - 1)
+        index -= 1
+    # 不断删除堆顶元素
+    end = len(lst) - 1
+    while end > 1:
+        lst[1], lst[end] = lst[end], lst[1]
+        end -= 1
+        sift_down(lst, 1, end)
+    return lst[1:]
+```
+
+Golang版：
+```go
+func Sink(lst []int, index, end int) {
+    for 2*index+1 <= end {
+        child := 2 * index + 1
+        if child + 1 <= end and lst[child+1] > lst[child] {
+            child++
+        }
+        if lst[index] < lst[child] {
+            lst[index], lst[child] = lst[child], lst[index]
+            index = child
+        } else {
+            break
+        }
+    }
+}
+
+// 这里存放堆的数组采用下标从0开始，这样一来父结点是index/2-1；子结点是2*inde+1和2*index+2
+func HeapSort(lst []int) []int {
+    if len(lst) == 0 {
+        return lst
+    }
+    end := len(lst)-1
+    for index := (end)/2 - 1; index >= 0; index-- {
+        Sink(lst, index, end)
+    }
+    for end > 0 {
+        lst[0], lst[end] = lst[end], lst[0]
+        end--
+        Sink(lst, 0, end)
+    }
+    return lst
+}
+```
