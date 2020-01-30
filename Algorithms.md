@@ -4,6 +4,20 @@
 待完成
 
 ## Sorting
+#### 冒泡排序 Bubble Sort
+一次巡回中，如果出现逆序的情况，就交换，一直往后移动直至巡回结束，开始下一个巡回，当没有交换发生的时候则结束。每次巡回的时候最后的元素是最大的
+
+```py
+def bubble_sort(lst):
+    if lst == []:
+        return []
+    for i in range(len(lst)):
+        for j in range(1, len(lst) - i):
+            if lst[j-1] > lst[j]:
+                lst[j-1], lst[j] = lst[j], lst[j-1]
+    return lst
+```
+
 #### 选择排序 Selection Sort
 - 思想：最开始，找到数组中最小的元素，将其和数组第一个元素交换位置；然后在剩下的元素中找到最小的元素，将其和数组的第二个元素交换位置，如此往复。。。简单地说，就是不断在剩余元素中选取最小者放到剩余元素的首位。
 - 复杂度：大约会进行N次交换以及N^2次比较
