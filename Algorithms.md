@@ -331,6 +331,9 @@ func HeapSort(lst []int) []int {
 #### 二分查找 Binary Search
 - 思想：采用了分治的思想。在**有序数组**中查找时，每次都将待查找元素与数组**中间位置**的数进行比较。如果被查找的数小于中间位置的数，则在左边的子数组中继续查找；如果大于中间位置的数，则在右子数组中继续查找，否则中间位置的数就是待查找的数。
 - 时间复杂度：处理的问题规模每次减半，因此二分查找的时间复杂度为O(logN)
+- 特点：二分查找很快，但是前提是必须要维护一个有序数组，而一旦需要进行插入操作，则会出现最坏情况下O(N)的时间复杂度。因此我们还需要考虑，是否可以找到一种对于插入和查找都很快的数据结构。下面列出了一些数据结构的对比：
+
+![symbol tables](_v_images/20200131090216726_6029.png)
 
 Python版：
 ```py
@@ -350,7 +353,7 @@ def binary_search(array, val):
 
 Golang版：
 ```go
-fun BinarySearch(array []int, val int) int {
+func BinarySearch(array []int, val int) int {
     a := 0
     b := len(array) - 1
     for a <= b; m = (a+b)/2 {
@@ -365,3 +368,9 @@ fun BinarySearch(array []int, val int) int {
     return -1
 }
 ```
+
+#### 其它
+除了使用二分查找，还有其它的数据结构可以用于查找，由于已经在数据结构部分实现过了，因此不再详细展开：
+
+- [二叉搜索树BST](https://github.com/wolverinn/Iridescent/blob/master/Data%20Structure.md#binary-search-tree)
+- 平衡查找树：[红黑树](https://github.com/wolverinn/Iridescent/blob/master/Data%20Structure.md#%E7%BA%A2%E9%BB%91%E6%A0%91)
