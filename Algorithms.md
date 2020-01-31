@@ -5,7 +5,7 @@
 
 ## Sorting
 #### 冒泡排序 Bubble Sort
-一次巡回中，如果出现逆序的情况，就交换，一直往后移动直至巡回结束，开始下一个巡回，当没有交换发生的时候则结束。每次巡回的时候最后的元素是最大的
+一次巡回中，如果出现逆序的情况，就交换，一直往后移动直至巡回结束，开始下一个巡回，当没有交换发生的时候则结束。每次巡回的时候最后的元素是最大的。时间复杂度O(N^2)
 
 ```py
 def bubble_sort(lst):
@@ -324,5 +324,44 @@ func HeapSort(lst []int) []int {
         Sink(lst, 0, end)
     }
     return lst
+}
+```
+
+## Searching
+#### 二分查找 Binary Search
+- 思想：采用了分治的思想。在**有序数组**中查找时，每次都将待查找元素与数组**中间位置**的数进行比较。如果被查找的数小于中间位置的数，则在左边的子数组中继续查找；如果大于中间位置的数，则在右子数组中继续查找，否则中间位置的数就是待查找的数。
+- 时间复杂度：处理的问题规模每次减半，因此二分查找的时间复杂度为O(logN)
+
+Python版：
+```py
+def binary_search(array, val):
+    a = 0
+    b = len(array) - 1
+    while a <= b:
+        m = (a+b) // 2
+        if val == array[m]:
+            return m
+        elif val < array[m]:
+            b = m - 1
+        else:
+            a = m + 1
+    return -1
+```
+
+Golang版：
+```go
+fun BinarySearch(array []int, val int) int {
+    a := 0
+    b := len(array) - 1
+    for a <= b; m = (a+b)/2 {
+        if val == array[m] {
+            return m
+        } else if val < array[m] {
+            b = m - 1
+        } else {
+            a = m + 1
+        }
+    }
+    return -1
 }
 ```
