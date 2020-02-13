@@ -35,3 +35,7 @@ Solid data structure and algorithms in Python
 
 ## Algorithm
 算法我跟的主要知识体系是 Robert Sedgewick 的《算法-第四版》，以及Coursera上面配套的Princeton的网课。部分知识点已经在数据结构当中用代码实现过了，所以就进行了省略。
+
+#### [算法分析](Algorithms.md)
+
+#### [算法代码](Algorithm%20practice.ipynb)
