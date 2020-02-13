@@ -5,6 +5,8 @@ Solid data structure and algorithms in Python
 <img src="_v_images/20200102113345622_12587.jpg" width="640px">
 </div>
 
+目前进度：数据结构部分已完成，算法部分正在完善中
+
 ## Data Structure
 数据结构我跟的主要知识体系是浙江大学的MOOC《[数据结构](https://www.icourse163.org/course/ZJU-93001)》，以及[这个GitHub仓库](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)中的数据结构部分
 
@@ -35,3 +37,7 @@ Solid data structure and algorithms in Python
 
 ## Algorithm
 算法我跟的主要知识体系是 Robert Sedgewick 的《算法-第四版》，以及Coursera上面配套的Princeton的网课。部分知识点已经在数据结构当中用代码实现过了，所以就进行了省略。
+
+#### [算法分析](Algorithms.md)
+
+#### [算法代码](Algorithm%20practice.ipynb)
