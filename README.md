@@ -38,6 +38,22 @@ Solid data structure and algorithms in Python
 ## Algorithm
 算法我跟的主要知识体系是 Robert Sedgewick 的《算法-第四版》，以及Coursera上面配套的Princeton的网课。部分知识点已经在数据结构当中用代码实现过了，所以就进行了省略。
 
+大部分算法我都用了 Python 和 Golang 两种语言去实现，这样做不仅是熟悉语言的一种方式，也可以让你对算法对掌握更加牢固，同时如果有些地方不太看得懂，可以试试看另一种语言对实现，说不定能够获得更清晰的思路
+
 #### [算法分析](Algorithms.md)
+* 算法复杂度分析
+* 排序算法
+  * 冒泡排序
+  * 选择排序
+  * 插入排序
+  * 希尔排序
+  * 归并排序
+  * 快速排序
+  * 堆排序
+* 查找
+  * 二分查找
+  * 二叉搜索树
+  * 红黑树
+  * 散列表
 
 #### [算法代码](Algorithm%20practice.ipynb)
