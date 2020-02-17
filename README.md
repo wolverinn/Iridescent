@@ -55,5 +55,9 @@ Solid data structure and algorithms in Python
   * 二叉搜索树
   * 红黑树
   * 散列表
+* 链表相关算法
+* 二叉树相关算法
+* 图相关算法
+* 字符串相关算法
 
 #### [算法代码](Algorithm%20practice.ipynb)

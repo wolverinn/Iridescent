@@ -390,3 +390,11 @@ func BinarySearch(array []int, val int) int {
 - [二叉搜索树BST](https://github.com/wolverinn/Iridescent/blob/master/Data%20Structure.md#binary-search-tree)
 - 平衡查找树：[红黑树](https://github.com/wolverinn/Iridescent/blob/master/Data%20Structure.md#%E7%BA%A2%E9%BB%91%E6%A0%91)
 - [散列表]()
+
+## 链表相关算法
+
+## 二叉树相关算法
+
+## 图相关算法
+
+## 字符串相关算法
