@@ -5,7 +5,7 @@ Solid data structure and algorithms in Python
 <img src="_v_images/20200102113345622_12587.jpg" width="640px">
 </div>
 
-目前进度：数据结构部分已完成，算法部分即将开始完善链表和二叉树相关算法。Star this repo and come back later :）
+目前进度：数据结构部分已完成，算法部分即将开始完善链表和二叉树相关算法（最近有点忙，预计6月份开始）。Star this repo and come back later :）
 
 ## Data Structure
 数据结构我跟的主要知识体系是浙江大学的MOOC《[数据结构](https://www.icourse163.org/course/ZJU-93001)》，以及[这个GitHub仓库](https://github.com/jwasham/coding-interview-university/blob/master/translations/README-cn.md)中的数据结构部分
