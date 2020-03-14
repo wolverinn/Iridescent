@@ -1185,6 +1185,6 @@ def remove(self, key):
 ### 待完成
 
 - [ ] AVL 插入/删除原理（MOOC/CS-Interview-Knowledge-Map）
-- [ ] 红黑树代码实现
+- [ ] [红黑树代码实现](https://blog.csdn.net/eson_15/article/details/51144079)
 - [ ] 哈夫曼树（MOOC）
 - [ ] 图：拓扑排序/DFS/BFS/最短路径/最小生成树MST
