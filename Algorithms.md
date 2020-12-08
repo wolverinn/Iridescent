@@ -162,8 +162,8 @@ func ShellSort(lst []int) []int {
 Python版：
 ```py
 def merge_sort(lst):
-    if not lst:
-        return []
+    if len(lst) <= 1:
+        return lst
     mid = len(lst) // 2
     left = merge_sort(lst[:mid])
     right = merge_sort(lst[mid:])
