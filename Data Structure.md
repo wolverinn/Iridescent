@@ -90,13 +90,15 @@ array1 = Array([1,2,3])
 - remove(item) —— 删除指定值的元素，并返回其索引（即使有多个元素）
   
   ```py
-  def remove(self, item):
-      index_list = []
-      item_count = self.data.count(item)
-      for i in range(item_count):
-          index_list.append(self.data.index(item))
-          self.data.remove(item)
-      return index_list
+  def remove(self,item):
+      indexList=[]
+      count=0
+      for i in range(len(self.data)):
+          if self.data[i-count]==item:
+              indexList.append(i)
+              self.data.pop(i-count)
+              count+=1
+      return indexList
   ```
 
 - find(item) —— 寻找指定值的元素并返回其中第一个出现的元素其索引，若未找到则返回 -1
