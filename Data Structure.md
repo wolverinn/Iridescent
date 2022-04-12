@@ -1112,6 +1112,8 @@ def insert(self, key, value):
         self.table[index] = listNode(key, value)
     else:
         while head.next:
+            if value == head.value:
+                return # 如果插入重复的值，直接return
             head = head.next
         head.next = listNode(key, value)
 ```
