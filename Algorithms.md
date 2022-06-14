@@ -392,8 +392,10 @@ func BinarySearch(array []int, val int) int {
 - [散列表]()
 
 ## 链表相关算法
+直接见[Algorithm practice](./Algorithm%20practice.ipynb)文件
 
 ## 二叉树相关算法
+直接见[Algorithm practice](./Algorithm%20practice.ipynb)文件
 
 ## 图相关算法
 
