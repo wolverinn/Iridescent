@@ -50,7 +50,7 @@ def select_sort(lst):
         for j in range(i, len(lst)):
             if lst[j] < lst[smallest]:
                 smallest = j
-            lst[i], lst[smallest] = lst[smallest], lst[i]
+        lst[i], lst[smallest] = lst[smallest], lst[i]
     return lst
 ```
 
